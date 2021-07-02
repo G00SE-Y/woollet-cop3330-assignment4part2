@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ListManagerController">
+   <children>
+      <SplitPane dividerPositions="0.5" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="355.0" prefWidth="296.0">
+               <children>
+                  <Button layoutX="181.0" layoutY="258.0" mnemonicParsing="false" text="Completed" />
+                  <Button layoutX="69.0" layoutY="258.0" mnemonicParsing="false" text="Incomplete" />
+                  <Button layoutX="14.0" layoutY="258.0" mnemonicParsing="false" text="All" />
+                  <Label layoutX="12.0" layoutY="10.0" text="Name:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="10.0" />
+                  <TextArea editable="false" layoutX="69.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" text="name of a list" AnchorPane.topAnchor="5.0" />
+                  <TableView layoutY="49.0" prefHeight="200.0" prefWidth="295.0">
+                    <columns>
+                      <TableColumn prefWidth="294.0" text="Item Name" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="85.0" layoutY="298.0" mnemonicParsing="false" text="Return To Lists" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="84.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <GridPane prefHeight="243.0" prefWidth="286.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="186.0" prefWidth="186.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="258.0" minHeight="10.0" prefHeight="144.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="110.0" text="Item name:" translateX="5.0" GridPane.rowIndex="1" />
+                        <Label prefHeight="30.0" prefWidth="110.0" text="Do By Date:" translateX="5.0" GridPane.rowIndex="2" />
+                        <Label prefHeight="25.0" prefWidth="110.0" text="Description:" translateX="5.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                        <CheckBox mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Complete" />
+                        <TextArea editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="186.0" text="blah blah blah something goes here blah blah" translateX="-8.0" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                        <TextArea editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="186.0" text="YYYY-MM-DD" translateX="-8.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                        <TextArea editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="186.0" text="some item" translateX="-8.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Button layoutX="230.0" layoutY="263.0" mnemonicParsing="false" text="Edit" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Button layoutX="181.0" layoutY="258.0" mnemonicParsing="false" text="New" AnchorPane.bottomAnchor="5.0" />
+                  <Button layoutX="107.0" layoutY="258.0" mnemonicParsing="false" text="Delete" AnchorPane.bottomAnchor="5.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
