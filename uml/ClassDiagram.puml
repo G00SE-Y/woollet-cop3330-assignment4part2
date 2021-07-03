@@ -1,27 +1,136 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+class AddItemController {
+-TextField itemName
+-LocalDate dueDate
+-TextField desc
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+-void submitButtonClicked(ActionEvent)
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class AddListController {
+-TextField listName
+
+-void submitButtonClicked(ActionEvent)
 }
+
+class ConfirmDeleteController {
+-void confirmButtonClicked(ActionEvent)
+-void cancelButtonClicked(ActionEvent)
+}
+
+class ListCatalogController {
+-void saveListButtonCLicked(ActionEvent)
+-void saveAllListsButtonClicked(actionEvent)
+-void renameButtonClicked(actionEvent)
+-void newButtonClicked(ActionEvent)
+-void deleteButtonClicked(ActionEvent)
+}
+
+class ListOptionsController {
+-void completeBoxChecked(ActionEvent)
+-void deleteButtonClicked(ActionEvent)
+-void newButtonClicked(ActionEvent)
+-void editButtonClicked(ActionEvent)
+-void allButtonClicked(ActionEvent)
+-void incompleteButtonClicked(ActionEvent)
+-void completedButtonClicked(ActionEvent)
+-void returnToListsButtonClicked(ActionEvent)
+-void itemClicked(ActionEvent)
+}
+
+class LoadListsController {
+-void LoadListsButtonClicked(ActionEvent)
+-void loadBoxChecked(ActionEvent)
+}
+
+class LoadOptionsController {
+-void loadAllListsButtonClicked(ActionEvent)
+-void selectListsToLoadButtonClicked(ActionEvent)
+-void boneZoneButtonClicked(ActionEvent)
+}
+
+class ToDoItem {
+-String name
+-String date
+-String desc
+
++String getName()
++void setName(String)
++String getDate()
++void setDate(String)
++String getDesc()
++void setDesc(String)
+
++ToDoItem(String, String, String)
+}
+
+class ToDoList {
+-String name
+-LinkedList<ToDoItem> list
+-int items
+
++String getName()
++void setName(String)
++int getItems()
+
++ToDoList(String)
+
++void addItem(ToDoItem)
++void removeItem(ToDoItem)
++void editItem(ToDoItem,ToDoItem)
+
++void removeItem(String)
+}
+
+class Catalog {
+-ArrayList<String> allLists
+-LinkedList<ToDoList> catalog
+
++void addList(String)
++void removeList(String)
++void editListName(String, String)
+
++ArrayList<String> getLists()
++void LoadLists(ArrayList<String>)
+
++Catalog()
+}
+
+class ToDoApp {
++launch()
+}
+
+class DataStorage {
++void saveToMemory(ToDoList)
++void saveToMemory(Catalog)
+
++Catalog loadFromMemory(String[])
++String[] loadListNames()
+-ToDoList loadList(String)
+}
+
+class FileHandler {
++static BufferedReader getReader(String)
++static FileWriter getWriter(String)
+}
+
+Catalog *-- ToDoList
+ToDoList *-- ToDoItem
+
+note "File Utility Classes" as n1
+n1 . DataStorage
+n1 .. FileHandler
+
+note "Action Event Controllers" as n2
+n2 .-. AddItemController
+n2 .. AddListController
+n2 .-. ConfirmDeleteController
+n2 . ListCatalogController
+n2 .-. ListOptionsController
+n2 .. LoadListsController
+n2 .-. LoadOptionsController
 
 @enduml

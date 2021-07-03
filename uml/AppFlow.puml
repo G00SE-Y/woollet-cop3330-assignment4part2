@@ -18,30 +18,30 @@ case (user double clicks a list)
     while(return to lists clicked?) is (\nno)
     switch ( List Options)
     case ( New)
-        :Text1;
+        :Add Item Prompt;
     case ( Delete)
-        :Text2;
+        :Delete Confirmation;
     case ( \nEdit)
-        :Text3;
+        :Add Item Prompt;
     case ( All)
-        :Text4;
+        :Show All Items;
     case ( Incomplete)
-        :Text5;
+        :Show Only Unmarked\n'complete' Items;
     case ( Completed)
-        :Text6;
+        :Show Only Marked\n'complete' Items;
     endswitch
     endwhile
 
-case ( Add)
-  :Text 1;
+case ( \n  Add)
+  :Add List Prompt;
 case ( Rename)
-  :Text 2;
+  :Add List Prompt;
 case (\n Delete)
-  :Text 3;
+  :Deletion Confirmation;
 case ( Save List)
-  :Text 4;
-case ( Save All Lists)
-  :Text 5;
+    :Save;
+case ( \n\nSave All Lists)
+    :Save;
 endswitch
 
 endwhile (yes   )
