@@ -17,7 +17,7 @@ public class ToDoManager extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("CatalogLoadGUI.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("LoadOptionsGUI.fxml"));
 
 			Scene scene = new Scene(root);
 
