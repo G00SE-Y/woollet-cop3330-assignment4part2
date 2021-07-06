@@ -7,6 +7,7 @@ package ucf.assignments;
 import java.util.LinkedList;
 
 public class Catalog {
+	LinkedList<String> allListNames;
 	private LinkedList<ToDoList> catalog = new LinkedList<>();
 	private int numberOfLists;
 

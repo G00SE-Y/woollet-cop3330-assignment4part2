@@ -4,32 +4,70 @@
 class AddItemController {
 -TextField itemName
 -LocalDate dueDate
--TextField desc
+-TextField description
 
++static Stage stage
+-Stage AddItemStage
 
--void submitButtonClicked(ActionEvent)
++AddItemController(Stage)
+
+void submitButtonClicked(ActionEvent)
 }
 
 class AddListController {
 -TextField listName
 
--void submitButtonClicked(ActionEvent)
++static Stage stage
+-Stage AddListStage
+
++AddListController(Stage)
+
+void submitButtonClicked(ActionEvent)
 }
 
 class ConfirmDeleteController {
--void confirmButtonClicked(ActionEvent)
--void cancelButtonClicked(ActionEvent)
++static Stage stage
+-Stage confirmDeleteStage
+
++confirmDeleteController(Stage)
+
+void confirmButtonClicked(ActionEvent)
+void cancelButtonClicked(ActionEvent)
 }
 
 class ListCatalogController {
--void saveListButtonCLicked(ActionEvent)
--void saveAllListsButtonClicked(actionEvent)
--void renameButtonClicked(actionEvent)
--void newButtonClicked(ActionEvent)
--void deleteButtonClicked(ActionEvent)
++static Stage stage
+-Stage ListCatalogStage
+
+-TableView tableView
+-TableColumn nameColumn
+-TableColumn sizeColumn
+
++ListCatalogController(Stage)
++initialize()
+
+void saveListButtonCLicked(ActionEvent)
+void saveAllListsButtonClicked(ActionEvent)
+void renameButtonClicked(ActionEvent)
+void newButtonClicked(ActionEvent)
+void deleteButtonClicked(ActionEvent)
+void onTableItemDoubleClicked(ActionEvent)
 }
 
 class ListOptionsController {
++static Stage stage
+-Stage ListOptionsStage
+
+-TextArea listName
+-TableView<ToDoItem> table
+-TableColumn listNames
+-CheckBox completed
+-TextArea itemDescription
+-TextArea itemDate
+-TextArea itemName
+
++ListOptionsController(Stage)
+
 -void completeBoxChecked(ActionEvent)
 -void deleteButtonClicked(ActionEvent)
 -void newButtonClicked(ActionEvent)
@@ -42,59 +80,81 @@ class ListOptionsController {
 }
 
 class LoadListsController {
++static Stage stage
+-Stage LoadListsStage
+
+-TableView table
+-TableColumn checkBoxes
+-TableColumn listNames
+
++LoadListsController(Stage)
+
 -void LoadListsButtonClicked(ActionEvent)
 -void loadBoxChecked(ActionEvent)
 }
 
 class LoadOptionsController {
++static Stage stage
+-Stage LoadOptionsStage
+
++LoadOptionsController(Stage)
+
 -void loadAllListsButtonClicked(ActionEvent)
 -void selectListsToLoadButtonClicked(ActionEvent)
--void boneZoneButtonClicked(ActionEvent)
+-void memeButtonClicked(ActionEvent)
 }
 
 class ToDoItem {
--String name
--String date
--String desc
+-SimpleStringProperty name
+-SimpleStringProperty description
+-LocalDate date
+-boolean complete
 
 +String getName()
 +void setName(String)
 +String getDate()
-+void setDate(String)
++void setDate(LocalDate)
 +String getDesc()
 +void setDesc(String)
++String isComplete()
++void setComplete(String)
 
 +ToDoItem(String, String, String)
 }
 
 class ToDoList {
--String name
+-SimpleStringProperty name
 -LinkedList<ToDoItem> list
--int items
+-SimpleStringProperty size
 
 +String getName()
 +void setName(String)
-+int getItems()
++String getSize()
++LinkedList<ToDoItem> getList()
 
 +ToDoList(String)
 
 +void addItem(ToDoItem)
 +void removeItem(ToDoItem)
 +void editItem(ToDoItem,ToDoItem)
-
-+void removeItem(String)
+-void updateSize()
 }
 
 class Catalog {
--ArrayList<String> allLists
+-LinkedList<String> allListNames
 -LinkedList<ToDoList> catalog
+-int numberOfLists
 
 +void addList(String)
 +void removeList(String)
 +void editListName(String, String)
 
-+ArrayList<String> getLists()
++LinkedList<String> getCatalog()
+-void updateSize()
 +void LoadLists(ArrayList<String>)
++void addList(ToDoList)
++void deleteList(ToDoList)
++void editList(String,String)
 
 +Catalog()
 }
@@ -104,15 +164,20 @@ class ToDoApp {
 }
 
 class DataStorage {
+-File storageFolder
+
++DataStorage(File)
+
 +void saveToMemory(ToDoList)
 +void saveToMemory(Catalog)
 
-+Catalog loadFromMemory(String[])
-+String[] loadListNames()
--ToDoList loadList(String)
++Catalog Catalog loadLists()
+Catalog loadLists(LinkedList<String> listNames)
++LinkedList<String> loadListNames()
 }
 
 class FileHandler {
+-getDirectory()
 +static BufferedReader getReader(String)
 +static FileWriter getWriter(String)
 }
