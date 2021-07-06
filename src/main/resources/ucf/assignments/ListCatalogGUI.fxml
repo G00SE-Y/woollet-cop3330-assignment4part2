@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ListOptionsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ListCatalogController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,17 +18,17 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <TableView layoutX="4.0" layoutY="41.0" prefHeight="292.0" prefWidth="590.0">
+            <TableView fx:id="tableView" layoutX="4.0" layoutY="41.0" prefHeight="292.0" prefWidth="590.0">
               <columns>
-                <TableColumn prefWidth="431.0" text="List Name" />
-                <TableColumn prefWidth="168.0" text="Number of Items" />
+                <TableColumn fx:id="nameColumn" prefWidth="431.0" text="List Name" />
+                <TableColumn fx:id="sizeColumn" prefWidth="168.0" text="Number of Items" />
               </columns>
             </TableView>
-            <Button layoutX="518.0" layoutY="351.0" mnemonicParsing="false" text="Delete" />
-            <Button layoutX="454.0" layoutY="351.0" mnemonicParsing="false" text="New" />
-            <Button layoutX="364.0" layoutY="351.0" mnemonicParsing="false" text="Rename" />
-            <Button layoutX="14.0" layoutY="351.0" mnemonicParsing="false" text="Save List" />
-            <Button layoutX="106.0" layoutY="351.0" mnemonicParsing="false" text="Save All Lists" />
+            <Button layoutX="518.0" layoutY="351.0" mnemonicParsing="false" onAction="#deleteButtonClicked" text="Delete" />
+            <Button layoutX="454.0" layoutY="351.0" mnemonicParsing="false" onAction="#newButtonClicked" text="New" />
+            <Button layoutX="364.0" layoutY="351.0" mnemonicParsing="false" onAction="#renameButtonClicked" text="Rename" />
+            <Button layoutX="14.0" layoutY="351.0" mnemonicParsing="false" onAction="#saveListButtonClicked" text="Save List" />
+            <Button layoutX="106.0" layoutY="351.0" mnemonicParsing="false" onAction="#saveAllListsButtonClicked" text="Save All Lists" />
          </children>
       </Pane>
    </children>

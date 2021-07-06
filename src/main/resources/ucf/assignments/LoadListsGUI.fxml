@@ -5,14 +5,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ListCatalogController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.LoadListsController">
    <children>
-      <TableView layoutY="-1.0" prefHeight="342.0" prefWidth="600.0">
+      <TableView fx:id="tableView" layoutY="-1.0" prefHeight="342.0" prefWidth="600.0">
         <columns>
           <TableColumn prefWidth="91.0" text="Load" />
           <TableColumn editable="false" prefWidth="508.0" text="List Name" />
         </columns>
       </TableView>
-      <Button layoutX="494.0" layoutY="351.0" mnemonicParsing="false" text="Load Lists" />
+      <Button layoutX="494.0" layoutY="351.0" mnemonicParsing="false" onAction="#LoadListsButtonClicked" text="Load Lists" />
    </children>
 </Pane>
