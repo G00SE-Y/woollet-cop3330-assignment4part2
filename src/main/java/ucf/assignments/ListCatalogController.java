@@ -59,6 +59,8 @@ public class ListCatalogController implements Initializable {
 	void renameButtonClicked (ActionEvent action) throws IOException {
 
 		// open a new window to prompt the user for a new lists name to overwrite the old list's name
+		// update the list's name to the new name
+		// update window
 
 		System.out.println("rename list");
 
@@ -75,7 +77,9 @@ public class ListCatalogController implements Initializable {
 	@FXML
 	void newButtonClicked (ActionEvent action) throws IOException {
 
+		// prompt the user for a list name
 		// create a new list using a name the user enters
+		// update window
 
 		System.out.println("new list");
 
@@ -93,7 +97,8 @@ public class ListCatalogController implements Initializable {
 	void deleteButtonClicked (ActionEvent action) throws IOException {
 
 		// prompt the user to confirm the deletion in a new window
-		//
+			// if confirmed, delete the list and update the catalog
+			// otherwise close window and do nothing
 
 		System.out.println("delete list");
 

@@ -46,7 +46,7 @@ public class ListOptionsController {
 
 	@FXML
 	void completeBoxChecked(ActionEvent event) {
-		// update the current item's complete value
+		// update the current item's 'complete' value
 	}
 
 	@FXML
@@ -131,8 +131,7 @@ public class ListOptionsController {
 	}
 
 
-	public ListOptionsController() {
-	}
+	public ListOptionsController() {}
 
 	public ListOptionsController (Stage stage) {
 		this.stage = stage;
