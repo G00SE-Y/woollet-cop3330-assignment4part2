@@ -12,9 +12,7 @@ import javafx.stage.Stage;
 
 
 public class AddItemController {
-	private Stage stage = new Stage();
-
-	public static Stage AddItemStage;
+	private Stage stage;
 
 	@FXML
 	private TextField name;
@@ -23,12 +21,9 @@ public class AddItemController {
 	@FXML
 	private DatePicker date;
 
-	@FXML
-	private TextField newItemName;
 
 	public AddItemController(Stage stage) {
 		this.stage = stage;
-		AddItemStage = this.stage;
 	}
 
 	public AddItemController () {}
@@ -41,6 +36,11 @@ public class AddItemController {
 
 		System.out.println("new item created:");
 		System.out.println(this.name.getCharacters() + ", " + this.date.getValue() + ", " +this.description.getCharacters());
-		AddItemStage.close();
+
+	}
+
+	@FXML
+	void cancelButtonClicked (ActionEvent action) {
+		this.stage.close();
 	}
 }

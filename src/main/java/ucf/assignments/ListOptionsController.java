@@ -69,7 +69,7 @@ public class ListOptionsController {
 		stage.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(new ConfirmDeleteController(stage));
+		loader.setController(new ConfirmDeleteController());
 	}
 
 	@FXML

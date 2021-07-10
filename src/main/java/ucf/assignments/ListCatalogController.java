@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -18,15 +17,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
-public class ListCatalogController implements Initializable {
+
+public class ListCatalogController {
 
 	public static Stage ListCatalogStage;
 
 	private Stage stage = new Stage();
+
+	private ToDoList selected;
+
+	private ObservableList<ToDoList> list;
 
 	public ListCatalogController() {
 	}
@@ -37,21 +39,33 @@ public class ListCatalogController implements Initializable {
 	}
 
 	//for displaying the table
-	@FXML private final TableView<Catalog> tableView = new TableView<>();
-	@FXML private TableColumn<ToDoList, String> nameColumn;
-	@FXML private TableColumn<ToDoList, String> sizeColumn;
+	@FXML private TableView<ToDoList> tableView;
+	@FXML private TableColumn<ToDoList,String> nameColumn;
+	@FXML private TableColumn<ToDoList,String> sizeColumn;
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-
-		// initialize the table for the page when this stage is loaded
-
+	@FXML
+	private void initialize() {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
 
-		ObservableList<ToDoList> lists = FXCollections.observableArrayList();
-		lists.add(new ToDoList("Chores"));
-		lists.add(new ToDoList("Homework"));
+		list = FXCollections.observableArrayList();
+		list.add(new ToDoList("Chores"));
+		list.add(new ToDoList("Homework"));
+		list.add(new ToDoList("Work"));
+		list.add(new ToDoList("Classes"));
+		list.add(new ToDoList("A"));
+		list.add(new ToDoList("B"));
+		list.add(new ToDoList("C"));
+		list.add(new ToDoList("D"));
+		list.add(new ToDoList("E"));
+		list.add(new ToDoList("F"));
+		list.add(new ToDoList("G"));
+
+		tableView.setItems(list);
+
+		tableView.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> this.selected = newValue
+		);
 
 	}
 
@@ -62,6 +76,9 @@ public class ListCatalogController implements Initializable {
 		// update the list's name to the new name
 		// update window
 
+		if(selected == null)
+			return;
+
 		System.out.println("rename list");
 
 		Parent root = FXMLLoader.load(getClass().getResource("AddListGUI.fxml"));
@@ -71,7 +88,14 @@ public class ListCatalogController implements Initializable {
 		stage.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(new AddListController(stage));
+		AddListController controller = new AddListController();
+
+		controller.setDialogStage(this.stage);
+		controller.setList(this.selected);
+		loader.setController(controller);
+
+
+
 	}
 
 	@FXML
@@ -86,11 +110,17 @@ public class ListCatalogController implements Initializable {
 		Parent root = FXMLLoader.load(getClass().getResource("AddListGUI.fxml"));
 		Scene scene = new Scene(root);
 
+		stage.setTitle("New List");
 		stage.setScene(scene);
 		stage.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(new AddListController(stage));
+		AddListController controller = new AddListController();
+		controller.setDialogStage(this.stage);
+
+		ToDoList newList = new ToDoList("");
+		controller.setList(newList);
+		loader.setController(controller);
 	}
 
 	@FXML
@@ -100,16 +130,11 @@ public class ListCatalogController implements Initializable {
 			// if confirmed, delete the list and update the catalog
 			// otherwise close window and do nothing
 
-		System.out.println("delete list");
+		if(selected == null)
+			return;
 
-		Parent root = FXMLLoader.load(getClass().getResource("ConfirmDeleteGUI.fxml"));
-		Scene scene = new Scene(root);
-
-		stage.setScene(scene);
-		stage.show();
-
-		FXMLLoader loader = new FXMLLoader();
-		loader.setController(new ConfirmDeleteController(stage));
+		int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+		tableView.getItems().remove(selectedIndex);
 
 	}
 

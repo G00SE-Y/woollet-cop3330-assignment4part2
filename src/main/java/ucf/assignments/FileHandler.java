@@ -4,23 +4,39 @@
  */
 package ucf.assignments;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
+import java.io.*;
 
 public class FileHandler {
-	private File getDirectory() {
+	private static File getDirectory() {
 		//get storage file directory
-		return null;
+		return new File(System.getProperty ("user.dir"));
 	}
 
-	public BufferedReader getReader(String path) {
+	private static void createListDirectory() {
+		new File(getDirectory() + "\\List_Data").mkdir();
+	}
+
+	public static BufferedReader getReader(String fileName) throws FileNotFoundException {
 		//create new buffered reader from string file path
+
+		new BufferedReader(new FileReader(getDirectory() + "\\List_Data\\" + fileName + ".txt"));
 		return null;
 	}
 
-	public BufferedWriter getWriter() {
+	public static FileWriter getFileWriter(String fileName) throws IOException {
 		// create a new buffered writer from string file path
-		return null;
+		return new FileWriter(getOutputFile(fileName));
+	}
+
+	public static File getOutputFile(String outputFileName) throws IOException {
+
+		if(!new File(getDirectory() + "\\List_Data").exists()) {
+			createListDirectory();
+		}
+		File outputFile = new File(getDirectory() + "\\List_Data\\" + outputFileName);
+		if (!outputFile.exists()) {
+			outputFile.createNewFile();
+		}
+		return outputFile;
 	}
 }

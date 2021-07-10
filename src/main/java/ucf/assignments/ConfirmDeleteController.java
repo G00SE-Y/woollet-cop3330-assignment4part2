@@ -8,28 +8,57 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
+
 public class ConfirmDeleteController {
 
-	private Stage stage = new Stage();
+	private Stage stage;
 
-	public static Stage ConfirmDeleteStage;
+	private boolean submit = false;
 
-	public ConfirmDeleteController(Stage stage) {
+	public boolean isSubmit() {
+		return submit;
+	}
+
+	public void setStage(Stage stage) {
 		this.stage = stage;
-		ConfirmDeleteStage = this.stage;
 	}
 
 	public ConfirmDeleteController () {}
 
+	public ConfirmDeleteController (Stage stage) {
+		this.stage = stage;
+	}
+
 	@FXML
 	void cancelButtonClicked(ActionEvent action) {
-		System.out.println("action canceled");
-		ConfirmDeleteStage.close();
+		stage.close();
 	}
 
 	@FXML
 	void confirmButtonClicked (ActionEvent action) {
 		System.out.println("action confirmed");
-		ConfirmDeleteStage.close();
+
+		this.submit = true;
+
+		this.stage.close();
 	}
+
+//	public boolean getConfirmation() throws IOException {
+//
+//
+//
+//		confirmButton.setOnAction(e -> {
+//			this.submit = true;
+//			System.out.println(true);
+//			stage.close();
+//		});
+//
+//		cancelButton.setOnAction(e -> {
+//			this.submit = false;
+//			System.out.println(false);
+//			stage.close();
+//		});
+//
+//		return this.submit;
+//	}
 }

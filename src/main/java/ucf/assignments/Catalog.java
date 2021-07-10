@@ -8,11 +8,16 @@ import java.util.LinkedList;
 
 public class Catalog {
 	LinkedList<String> allListNames;
-	private LinkedList<ToDoList> catalog = new LinkedList<>();
+	private LinkedList<ToDoList> catalog;
 	private int numberOfLists;
 
 	public LinkedList<ToDoList>getCatalog() {
 		return this.catalog;
+	}
+
+	public Catalog() {
+		this.catalog = new LinkedList<>();
+		this.numberOfLists = 0;
 	}
 
 	private void updateSize() {
