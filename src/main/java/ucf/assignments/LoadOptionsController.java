@@ -16,13 +16,11 @@ import java.io.IOException;
 public class LoadOptionsController {
 
 	public static Stage LoadOptionsStage;
-
 	private Stage stage;
 
 	public LoadOptionsController(Stage stage) {
 		this.stage = stage;
 		LoadOptionsStage = stage;
-
 	}
 
 	public LoadOptionsController() {

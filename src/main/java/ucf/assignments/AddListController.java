@@ -19,6 +19,7 @@ public class AddListController {
 
 	private Stage dialogStage;
 	public static Stage AddListStage;
+
 	private ToDoList list = new ToDoList("temp");
 	private boolean submit = false;
 
@@ -31,6 +32,7 @@ public class AddListController {
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 		AddListStage = this.dialogStage;
+		AddListStage.setResizable(false);
 	}
 
 

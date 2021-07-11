@@ -7,9 +7,9 @@ package ucf.assignments;
 import java.io.*;
 
 public class FileHandler {
-	private static File getDirectory() {
+	public static File getDirectory() {
 		//get storage file directory
-		return new File(System.getProperty ("user.dir"));
+		return new File(System.getProperty("user.dir"));
 	}
 
 	private static void createListDirectory() {
@@ -18,19 +18,23 @@ public class FileHandler {
 
 	public static BufferedReader getReader(String fileName) throws FileNotFoundException {
 		//create new buffered reader from string file path
-
-		new BufferedReader(new FileReader(getDirectory() + "\\List_Data\\" + fileName + ".txt"));
-		return null;
+		return new BufferedReader(new FileReader(getDirectory() + "\\List_Data\\" + fileName));
 	}
 
-	public static FileWriter getFileWriter(String fileName) throws IOException {
+	public static BufferedWriter getWriter(String fileName) throws IOException {
 		// create a new buffered writer from string file path
-		return new FileWriter(getOutputFile(fileName));
+		return new BufferedWriter(new FileWriter(getOutputFile(fileName)));
+	}
+
+	public static void writeToFile(String string, String outFileName) throws IOException {
+		BufferedWriter writer = FileHandler.getWriter(outFileName);
+		writer.write(string);
+		writer.close();
 	}
 
 	public static File getOutputFile(String outputFileName) throws IOException {
 
-		if(!new File(getDirectory() + "\\List_Data").exists()) {
+		if (!new File(getDirectory() + "\\List_Data").exists()) {
 			createListDirectory();
 		}
 		File outputFile = new File(getDirectory() + "\\List_Data\\" + outputFileName);
@@ -39,4 +43,6 @@ public class FileHandler {
 		}
 		return outputFile;
 	}
+
+
 }

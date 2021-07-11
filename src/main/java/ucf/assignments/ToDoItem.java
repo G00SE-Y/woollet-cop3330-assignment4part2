@@ -4,38 +4,29 @@
  */
 package ucf.assignments;
 
-import javafx.beans.property.SimpleStringProperty;
 import java.time.LocalDate;
 
 
 public class ToDoItem {
-	private SimpleStringProperty name;
-	private SimpleStringProperty description;
+	private String name;
+	private String description;
 	private LocalDate date;
 	private boolean complete;
 
 	public String getName() {
-		return name.get();
-	}
-
-	public SimpleStringProperty nameProperty() {
 		return name;
 	}
 
 	public void setName(String name) {
-		this.name.set(name);
+		this.name = name;
 	}
 
 	public String getDescription() {
-		return description.get();
-	}
-
-	public SimpleStringProperty descriptionProperty() {
 		return description;
 	}
 
 	public void setDescription(String description) {
-		this.description.set(description);
+		this.description = description;
 	}
 
 	public LocalDate getDate() {
@@ -55,8 +46,8 @@ public class ToDoItem {
 	}
 
 	public ToDoItem(String name, String description, LocalDate date) {
-		this.name = new SimpleStringProperty(name);
-		this.description = new SimpleStringProperty(description) ;
+		this.name = name;
+		this.description = description;
 		this.date = date;
 		this.complete = false;
 	}

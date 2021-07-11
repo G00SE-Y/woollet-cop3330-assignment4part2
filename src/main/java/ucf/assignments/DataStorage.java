@@ -4,27 +4,25 @@
  */
 package ucf.assignments;
 
+import org.json.simple.parser.ParseException;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class DataStorage {
 	private File storageFolder;
 
-	DataStorage(File filepath) {
-		this.storageFolder = filepath;
+	DataStorage() {
+		this.storageFolder = new File(FileHandler.getDirectory()+ "/List_Data");
 	}
 
-	public static Catalog loadLists() {
-		// read catalog text file to create all lists in a new catalog
-		// go through each lists in the catalog and use csv parsing to read the data and add new items to each list
-		// continue until all files are read and lists created
-		return null;
-	}
 
-	public static Catalog loadLists(LinkedList<String> listNames) {
+
+	public static Catalog loadLists(String listName) {
 		// use list name array to read list files from folder
-		//use csv parsing to read the item data and add to lists
-		//continue until all lists in array is created-
+		// use json parsing to read the item data and add to list
+		// continue until all lists in array is created-
 		return null;
 	}
 
@@ -37,12 +35,36 @@ public class DataStorage {
 		// print list name string to catalog file
 	}
 
-	public void saveToMemory(ToDoList list) {
+	public static void saveToMemory(ToDoList list) {
 		// parse the item data into a single large string
 		// create a filewriter for list
 		// create new file or overwrite old file with name of list '.txt'
 		// read all file names in the folder that isnt the catalog file
 		// create a new string with all of the filenames as list names
 		// print list name string to catalog file
+
+
+	}
+
+	public static void deleteList(ToDoList list) {
+		// delete list file
+		// delete list from catalog file
+
+		File listFile = new File(FileHandler.getDirectory() + "/List_Data/catalog.json");
+		listFile.delete();
+
+
+
+
+	}
+
+	private static void delete () throws IOException {
+		try{
+			Parser.loadCatalog();
+
+		} catch (IOException | ParseException e) {
+			File catalogFile = new File(FileHandler.getDirectory() + "/List_Data/catalog.json");
+			catalogFile.createNewFile();
+		}
 	}
 }

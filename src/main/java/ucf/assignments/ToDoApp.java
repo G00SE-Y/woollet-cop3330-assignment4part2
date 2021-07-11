@@ -29,6 +29,7 @@ public class ToDoApp extends Application {
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ToDo");
+			primaryStage.setResizable(false);
 			primaryStage.show();
 
 			FXMLLoader loader = new FXMLLoader();

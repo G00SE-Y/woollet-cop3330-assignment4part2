@@ -4,10 +4,12 @@
  */
 package ucf.assignments;
 
+import javafx.collections.ObservableList;
+
 import java.util.LinkedList;
 
 public class Catalog {
-	LinkedList<String> allListNames;
+	private ObservableList<ToDoList> observableCatalog;
 	private LinkedList<ToDoList> catalog;
 	private int numberOfLists;
 
@@ -15,13 +17,22 @@ public class Catalog {
 		return this.catalog;
 	}
 
+	public ObservableList<ToDoList> getObservableCatalog() {
+		return observableCatalog;
+	}
+
 	public Catalog() {
 		this.catalog = new LinkedList<>();
-		this.numberOfLists = 0;
+		updateSize();
+	}
+
+	public void setActiveCatalog(LinkedList<ToDoList> catalog) {
+		this.catalog = catalog;
+		updateSize();
 	}
 
 	private void updateSize() {
-		this.numberOfLists = catalog.size();
+		this.numberOfLists = this.catalog.size();
 	}
 
 	public void addList(ToDoList newList) {

@@ -4,30 +4,29 @@
  */
 package ucf.assignments;
 
-import javafx.beans.property.SimpleStringProperty;
-
 import java.util.LinkedList;
 
 public class ToDoList {
-	private SimpleStringProperty name;
-	private SimpleStringProperty size;
-	private LinkedList<ToDoItem> list = new LinkedList<>();
+	private String name;
+	private String size;
+	private LinkedList<ToDoItem> list;
 
 	public ToDoList(String name) {
-		this.name = new SimpleStringProperty(name);
-		this.size = new SimpleStringProperty("0");
+		this.name = name;
+		this.list = new LinkedList<>();
+		this.size = "0";
 	}
 
 	public String getName() {
-		return name.get();
+		return name;
 	}
 
 	public void setName(String name) {
-		this.name = new SimpleStringProperty(name);
+		this.name = name;
 	}
 
 	public String getSize() {
-		return size.get();
+		return size;
 	}
 
 	public LinkedList<ToDoItem> getList() {
@@ -50,6 +49,6 @@ public class ToDoList {
 	}
 
 	private void updateSize() {
-		this.size = new SimpleStringProperty(""+this.list.size());
+		this.size = String.valueOf(this.list.size());
 	}
 }
