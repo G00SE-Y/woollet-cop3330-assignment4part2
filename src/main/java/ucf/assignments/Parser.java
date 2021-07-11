@@ -6,6 +6,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -17,8 +19,13 @@ public class Parser {
 		return jsonReadList(FileHandler.getReader(listName+".json"));
 	}
 
-	public static LinkedList<ToDoList> loadCatalog() throws IOException, ParseException {
-		return jsonReadCatalog(FileHandler.getReader("catalog.json"));
+	public static LinkedList<ToDoList> loadCatalog() throws IOException {
+		try{
+			return jsonReadCatalog(FileHandler.getReader("catalog.json"));
+		} catch (IOException | ParseException e) {
+			new File(FileHandler.getDirectory()+"/List_Data/catalog.json").createNewFile();
+		}
+		return new LinkedList<>();
 	}
 
 	private static LinkedList<ToDoItem> jsonReadList(BufferedReader in) throws IOException, ParseException {

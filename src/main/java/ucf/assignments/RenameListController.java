@@ -5,70 +5,54 @@
 package ucf.assignments;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 
 
-public class AddListController {
+public class RenameListController {
 
 	@FXML
-	private TextField newListName = new TextField();
+	private TextField newListName;
 
 	private Stage dialogStage;
-	public static Stage AddListStage;
+	public static Stage RenameListStage;
 
+	private ToDoList list = new ToDoList("temp");
 
 
 	@FXML
 	private void initialize() {
+		newListName.setText(ToDoApp.selectedList.getName());
 	}
 
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-		AddListStage = this.dialogStage;
-		AddListStage.setResizable(false);
+		RenameListStage = this.dialogStage;
+		RenameListStage.setResizable(false);
+	}
+
+
+	public void setList(ToDoList list) {
+		this.list = list;
+		System.out.println(this.list.getName());
 	}
 
 	@FXML
 	private void submitButtonClicked() {
 		if (isInputValid()) {
-			ToDoList newList = new ToDoList(newListName.getText());
-			ToDoApp.catalog.addList(newList);
+			ToDoApp.activeList.setName(newListName.getText());
+			ListCatalogController.getSelected().setName(newListName.getText());
 
-			try {
-				ListCatalogController.ListCatalogStage.close();
-
-				Parent root = FXMLLoader.load(getClass().getResource("ListCatalogGUI.fxml"));
-				Scene scene = new Scene(root);
-
-				ToDoApp.mainScene.setScene(scene);
-				ToDoApp.mainScene.show();
-
-				FXMLLoader loader = new FXMLLoader();
-				ListCatalogController controller = new ListCatalogController(ToDoApp.mainScene);
-				loader.setController(controller);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			DataStorage.saveToMemory(ToDoApp.catalog);
-
-			AddListStage.close();
+			RenameListStage.close();
 		}
 	}
 
 	@FXML
 	private void cancelButtonClicked() {
-		AddListStage.close();
+		RenameListStage.close();
 	}
 
 	private boolean isInputValid() {

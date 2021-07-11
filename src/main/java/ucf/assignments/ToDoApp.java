@@ -16,7 +16,15 @@ public class ToDoApp extends Application {
 
 	public static Stage mainScene;
 
-	public static void main(String[] args) {
+	public static ToDoList activeList;
+
+	public static Catalog catalog;
+
+	public static ToDoList selectedList;
+
+	public static void main(String[] args) throws IOException {
+		catalog = new Catalog();
+		catalog.addAllLists(Parser.loadCatalog());
 		launch(args);
 	}
 
@@ -33,7 +41,8 @@ public class ToDoApp extends Application {
 			primaryStage.show();
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setController(new ListCatalogController(primaryStage));
+			ListCatalogController controller = new ListCatalogController(primaryStage);
+			loader.setController(controller);
 
 		} catch (IOException e) {
 			e.printStackTrace();

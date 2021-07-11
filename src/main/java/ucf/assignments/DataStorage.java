@@ -33,6 +33,12 @@ public class DataStorage {
 		// read all file names in the folder that isnt the catalog file
 		// create a new string with all of the filenames as list names
 		// print list name string to catalog file
+
+		try {
+			Parser.parseToCatalogFile(catalog);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void saveToMemory(ToDoList list) {
@@ -58,13 +64,8 @@ public class DataStorage {
 
 	}
 
-	private static void delete () throws IOException {
-		try{
-			Parser.loadCatalog();
+	private static void delete () {
 
-		} catch (IOException | ParseException e) {
-			File catalogFile = new File(FileHandler.getDirectory() + "/List_Data/catalog.json");
-			catalogFile.createNewFile();
-		}
+
 	}
 }

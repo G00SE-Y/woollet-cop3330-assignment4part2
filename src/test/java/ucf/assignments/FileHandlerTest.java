@@ -97,6 +97,6 @@ class FileHandlerTest {
 
 		}
 		File delete = new File(FileHandler.getDirectory() + "/List_Data/catalog.json");
-		System.out.println(delete.delete());
+		//System.out.println(delete.delete());
 	}
 }

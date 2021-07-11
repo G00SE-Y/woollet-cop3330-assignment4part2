@@ -51,7 +51,8 @@ public class ListOptionsController {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 
 		this.list = FXCollections.observableArrayList();
-		this.list.addAll(ListCatalogController.getSelected().getList());
+		this.list.addAll(ToDoApp.activeList.getList());
+		this.listName.setText(ToDoApp.activeList.getName());
 
 		tableView.setItems(this.list);
 
@@ -59,11 +60,9 @@ public class ListOptionsController {
 				(observable, oldValue, newValue) -> showItem(newValue)
 		);
 
-
-		this.listName.setText(ListCatalogController.getSelected().getName());
 		showItem(null);
 
-		this.toDoList = new ToDoList("");
+
 	}
 
 	private void tryCheck(ToDoItem selected) {
@@ -190,6 +189,10 @@ public class ListOptionsController {
 		loader.setController(new ListCatalogController(stage));
 	}
 
+	@FXML
+	void saveListButtonClicked(ActionEvent action) {
+
+	}
 
 	public ListOptionsController() {}
 }

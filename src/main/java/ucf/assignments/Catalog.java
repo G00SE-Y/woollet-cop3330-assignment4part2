@@ -51,4 +51,8 @@ public class Catalog {
 				list.setName(newName);
 		}
 	}
+
+	public void addAllLists(LinkedList<ToDoList> catalog) {
+		this.catalog.addAll(catalog);
+	}
 }

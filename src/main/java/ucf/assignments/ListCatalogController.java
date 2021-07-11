@@ -16,6 +16,7 @@ import java.awt.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.URI;
@@ -29,7 +30,7 @@ public class ListCatalogController {
 
 	private static ToDoList selected;
 
-	private ObservableList<ToDoList> catalog;
+	private static ObservableList<ToDoList> catalog;
 
 	public ListCatalogController() {
 	}
@@ -45,29 +46,28 @@ public class ListCatalogController {
 	@FXML private TableColumn<ToDoList,String> nameColumn;
 	@FXML private TableColumn<ToDoList,String> sizeColumn;
 
+	public static ToDoList getSelected() {
+		return selected;
+	}
+
 	@FXML
-	private void initialize() {
+	public void initialize() throws IOException, ParseException {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		sizeColumn.setCellValueFactory(cellData -> cellData.getValue().sizeProperty());
 
 		catalog = FXCollections.observableArrayList();
-		catalog.add(new ToDoList("Chores"));
-		catalog.get(0).addItem(new ToDoItem("monday","take out trash", Parser.parseDate("1999-12-30")));
-		catalog.get(0).addItem(new ToDoItem("friday","take out trash", Parser.parseDate("2000-01-04")));
-		catalog.add(new ToDoList("A"));
-		catalog.add(new ToDoList("B"));
-
-
+		catalog.addAll(ToDoApp.catalog.getCatalog());
 		tableView.setItems(catalog);
 
 		tableView.getSelectionModel().selectedItemProperty().addListener(
-				(observable, oldValue, newValue) -> selected = newValue
+				(observable, oldValue, newValue) -> updateSelected(newValue)
 		);
 
 	}
 
-	public static ToDoList getSelected() {
-		return selected;
+	private void updateSelected(ToDoList newValue) {
+		selected = newValue;
+		ToDoApp.activeList = newValue;
 	}
 
 	@FXML
@@ -80,19 +80,19 @@ public class ListCatalogController {
 		if(selected == null)
 			return;
 
-		System.out.println("rename list");
+		ToDoApp.selectedList = selected;
 
-		Parent root = FXMLLoader.load(getClass().getResource("AddListGUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("RenameListGUI.fxml"));
 		Scene scene = new Scene(root);
 
 		stage.setScene(scene);
 		stage.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		AddListController controller = new AddListController();
+		RenameListController controller = new RenameListController();
 
 		controller.setDialogStage(this.stage);
-		controller.setList(this.selected);
+		controller.setList(selected);
 		loader.setController(controller);
 
 
@@ -106,7 +106,8 @@ public class ListCatalogController {
 		// create a new list using a name the user enters
 		// update window
 
-		System.out.println("new list");
+		selected = new ToDoList("");
+		ToDoApp.activeList = selected;
 
 		Parent root = FXMLLoader.load(getClass().getResource("AddListGUI.fxml"));
 		Scene scene = new Scene(root);
@@ -118,14 +119,11 @@ public class ListCatalogController {
 		FXMLLoader loader = new FXMLLoader();
 		AddListController controller = new AddListController();
 		controller.setDialogStage(this.stage);
-
-		ToDoList newList = new ToDoList("");
-		controller.setList(newList);
 		loader.setController(controller);
 	}
 
 	@FXML
-	void deleteButtonClicked (ActionEvent action) throws IOException {
+	void deleteButtonClicked (ActionEvent action) {
 
 		// prompt the user to confirm the deletion in a new window
 			// if confirmed, delete the list and update the catalog
@@ -149,6 +147,7 @@ public class ListCatalogController {
 		if(this.selected == null)
 			return;
 
+		ToDoApp.activeList = selected;
 		System.out.println("List '" +this.selected.getName() + "' selected:");
 
 		Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
