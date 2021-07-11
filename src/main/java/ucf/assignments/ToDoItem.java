@@ -4,51 +4,66 @@
  */
 package ucf.assignments;
 
+import javafx.beans.property.*;
+
 import java.time.LocalDate;
 
 
 public class ToDoItem {
-	private String name;
-	private String description;
-	private LocalDate date;
-	private boolean complete;
+	private final SimpleStringProperty name;
+	private final SimpleStringProperty description;
+	private final SimpleObjectProperty<LocalDate> date;
+	private final SimpleBooleanProperty complete;
 
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name.set(name);
+	}
+
+	public SimpleStringProperty nameProperty() {
+		return name;
 	}
 
 	public String getDescription() {
-		return description;
+		return description.get();
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.description.set(description);
 	}
 
 	public LocalDate getDate() {
-		return date;
+		return date.get();
 	}
 
 	public void setDate(LocalDate date) {
-		this.date = date;
+		this.date.set(date);
 	}
 
 	public boolean isComplete() {
+		return complete.get();
+	}
+
+	public void setComplete() {
+		this.complete.set(!this.complete.get());
+	}
+
+	public SimpleBooleanProperty completeProperty() {
 		return complete;
 	}
 
-	public void setComplete(boolean complete) {
-		this.complete = complete;
-	}
-
 	public ToDoItem(String name, String description, LocalDate date) {
-		this.name = name;
-		this.description = description;
-		this.date = date;
-		this.complete = false;
+		this.name = new SimpleStringProperty();
+		this.description = new SimpleStringProperty();
+		this.date = new SimpleObjectProperty<>();
+		this.complete = new SimpleBooleanProperty();
+
+		this.name.set(name);
+		this.description.set(description);
+		this.date.set(date);
+		this.complete.set(false);
 	}
 }

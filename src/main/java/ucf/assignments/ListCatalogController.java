@@ -11,20 +11,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
+
+import java.awt.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 
 public class ListCatalogController {
 
 	public static Stage ListCatalogStage;
 	private Stage stage = new Stage();
 
-	private ToDoList selected;
+	private static ToDoList selected;
 
 	private ObservableList<ToDoList> catalog;
 
@@ -44,28 +47,27 @@ public class ListCatalogController {
 
 	@FXML
 	private void initialize() {
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		sizeColumn.setCellValueFactory(cellData -> cellData.getValue().sizeProperty());
 
 		catalog = FXCollections.observableArrayList();
 		catalog.add(new ToDoList("Chores"));
-		catalog.add(new ToDoList("Homework"));
-		catalog.add(new ToDoList("Work"));
-		catalog.add(new ToDoList("Classes"));
+		catalog.get(0).addItem(new ToDoItem("monday","take out trash", Parser.parseDate("1999-12-30")));
+		catalog.get(0).addItem(new ToDoItem("friday","take out trash", Parser.parseDate("2000-01-04")));
 		catalog.add(new ToDoList("A"));
 		catalog.add(new ToDoList("B"));
-		catalog.add(new ToDoList("C"));
-		catalog.add(new ToDoList("D"));
-		catalog.add(new ToDoList("E"));
-		catalog.add(new ToDoList("F"));
-		catalog.add(new ToDoList("G"));
+
 
 		tableView.setItems(catalog);
 
 		tableView.getSelectionModel().selectedItemProperty().addListener(
-				(observable, oldValue, newValue) -> this.selected = newValue
+				(observable, oldValue, newValue) -> selected = newValue
 		);
 
+	}
+
+	public static ToDoList getSelected() {
+		return selected;
 	}
 
 	@FXML
@@ -129,41 +131,45 @@ public class ListCatalogController {
 			// if confirmed, delete the list and update the catalog
 			// otherwise close window and do nothing
 
-		if(this.selected == null)
+		if(selected == null)
 			return;
 
 		int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
 		tableView.getItems().remove(selectedIndex);
 
+		selected = null;
+
 	}
 
 	@FXML
-	void saveListButtonClicked (ActionEvent action) {
+	void onOpenButtonClicked(ActionEvent action) throws IOException {
 
-		// create a linked list of lists that the user had selected when the button was pressed
-		// call the save function within the data storage class to save the selected lists into long term memory
+		// create the list options window for the list that was clicked on
 
-		DataStorage.saveToMemory(this.selected);
+		if(this.selected == null)
+			return;
 
-		System.out.println("saved list");
+		System.out.println("List '" +this.selected.getName() + "' selected:");
+
+		Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
+		Scene scene = new Scene(root);
+
+		stage.setTitle("New List");
+		stage.setScene(scene);
+		stage.show();
+
+		FXMLLoader loader = new FXMLLoader();
+		ListOptionsController controller = new ListOptionsController(this.stage, this.selected);
+		loader.setController(controller);
+
+		ListCatalogStage.close();
+
 	}
 
 	@FXML
-	void saveAllListsButtonClicked (ActionEvent action) {
-
-		// call the save function within the data storage class to save all lists in active memory into long term memory
-
-		for(ToDoList list : this.catalog) {
-			DataStorage.saveToMemory(list);
-		}
-
-		System.out.println("saved all lists");
-	}
-
-	@FXML
-	void onTableItemDoubleClicked(ActionEvent action) {
-
-		// create the list options window for the list that was double clicked on
-
+	void memeButtonClicked (ActionEvent action) throws URISyntaxException, IOException {
+		System.out.println("meme activated");
+		Desktop desktop = Desktop.getDesktop();
+		desktop.browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
 	}
 }

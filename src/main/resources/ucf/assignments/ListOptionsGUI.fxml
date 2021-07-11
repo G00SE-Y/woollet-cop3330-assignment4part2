@@ -6,7 +6,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,13 +21,13 @@
                   <Button layoutX="69.0" layoutY="258.0" mnemonicParsing="false" onAction="#incompleteButtonClicked" text="Incomplete" />
                   <Button layoutX="14.0" layoutY="258.0" mnemonicParsing="false" onAction="#allButtonClicked" text="All" />
                   <Label layoutX="12.0" layoutY="10.0" text="Name:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="10.0" />
-                  <TextArea fx:id="listName" editable="false" layoutX="69.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" text="name of a list" AnchorPane.topAnchor="5.0" />
-                  <TableView fx:id="table" layoutY="49.0" prefHeight="200.0" prefWidth="295.0">
+                  <TableView fx:id="tableView" layoutY="49.0" prefHeight="200.0" prefWidth="295.0">
                     <columns>
-                      <TableColumn prefWidth="294.0" text="Item Name" />
+                      <TableColumn fx:id="nameColumn" prefWidth="294.0" text="Item Name" />
                     </columns>
                   </TableView>
                   <Button layoutX="85.0" layoutY="298.0" mnemonicParsing="false" onAction="#returnToListsButtonClicked" text="Return To Lists" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="84.0" />
+                  <Label fx:id="listName" layoutX="66.0" layoutY="10.0" prefHeight="25.0" prefWidth="205.0" text="Label" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -45,13 +44,13 @@
                         <RowConstraints maxHeight="258.0" minHeight="10.0" prefHeight="144.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="30.0" prefWidth="110.0" text="Item name:" translateX="5.0" GridPane.rowIndex="1" />
-                        <Label prefHeight="30.0" prefWidth="110.0" text="Do By Date:" translateX="5.0" GridPane.rowIndex="2" />
+                        <Label prefHeight="30.0" prefWidth="110.0" text="Item name:" translateX="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                        <Label prefHeight="30.0" prefWidth="110.0" text="Do By Date:" translateX="5.0" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                         <Label prefHeight="25.0" prefWidth="110.0" text="Description:" translateX="5.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" GridPane.valignment="TOP" />
                         <CheckBox fx:id="completed" mnemonicParsing="false" onAction="#completeBoxChecked" prefHeight="30.0" prefWidth="110.0" text="Complete" />
-                        <TextArea fx:id="itemDescription" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="186.0" text="blah blah blah something goes here blah blah" translateX="-8.0" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                        <TextArea fx:id="itemDate" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="186.0" text="YYYY-MM-DD" translateX="-8.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                        <TextArea fx:id="itemName" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="186.0" text="some item" translateX="-8.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="itemName" prefHeight="25.0" prefWidth="179.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                        <Label fx:id="itemDate" prefHeight="25.0" prefWidth="178.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                        <Label fx:id="itemDescription" alignment="TOP_LEFT" prefHeight="196.0" prefWidth="176.0" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
                      </children>
                   </GridPane>
                   <Button layoutX="230.0" layoutY="263.0" mnemonicParsing="false" onAction="#editButtonClicked" text="Edit" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />

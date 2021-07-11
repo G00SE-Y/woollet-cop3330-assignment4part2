@@ -23,7 +23,7 @@ public class ToDoApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("LoadOptionsGUI.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("ListCatalogGUI.fxml"));
 			mainScene = primaryStage;
 
 			Scene scene = new Scene(root);
@@ -33,7 +33,7 @@ public class ToDoApp extends Application {
 			primaryStage.show();
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setController(new LoadOptionsController(primaryStage));
+			loader.setController(new ListCatalogController(primaryStage));
 
 		} catch (IOException e) {
 			e.printStackTrace();

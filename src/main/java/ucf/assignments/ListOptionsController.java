@@ -4,14 +4,14 @@
  */
 package ucf.assignments;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,22 +22,76 @@ public class ListOptionsController {
 	private Stage stage = new Stage();
 
 	@FXML
-	private TextArea listName;
-
-	@FXML
-	private TableView<ToDoItem> table;
+	private Label listName;
 
 	@FXML
 	private CheckBox completed;
 
 	@FXML
-	private TextArea itemDescription;
+	private Label itemDescription;
 
 	@FXML
-	private TextArea itemDate;
+	private Label itemDate;
 
 	@FXML
-	private TextArea itemName;
+	private Label itemName;
+
+	private ToDoItem selected;
+
+	private ToDoList toDoList;
+	private ObservableList<ToDoItem> list;
+
+	@FXML private TableView<ToDoItem> tableView;
+	@FXML private TableColumn<ToDoItem,String> nameColumn;
+
+
+	@FXML
+	private void initialize() {
+
+		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
+		this.list = FXCollections.observableArrayList();
+		this.list.addAll(ListCatalogController.getSelected().getList());
+
+		tableView.setItems(this.list);
+
+		tableView.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> showItem(newValue)
+		);
+
+
+		this.listName.setText(ListCatalogController.getSelected().getName());
+		showItem(null);
+
+		this.toDoList = new ToDoList("");
+	}
+
+	private void tryCheck(ToDoItem selected) {
+		System.out.println("here");
+		if(this.selected != null)
+			this.selected.setComplete();
+	}
+
+	public ListOptionsController (Stage stage, ToDoList list) {
+		this.stage = stage;
+		ListOptionsStage = this.stage;
+	}
+
+	private void showItem(ToDoItem newValue) {
+		this.selected = newValue;
+
+		if(newValue == null) {
+			this.itemName.setText("");
+			this.itemDate.setText("");
+			this.itemDescription.setText("");
+			return;
+		}
+
+		this.itemName.setText(newValue.getName());
+		this.itemDate.setText(newValue.getDate().toString());
+		this.itemDescription.setText(newValue.getDescription());
+		this.completed.setSelected(newValue.isComplete());
+	}
 
 	@FXML
 	void allButtonClicked(ActionEvent event) {
@@ -47,6 +101,12 @@ public class ListOptionsController {
 	@FXML
 	void completeBoxChecked(ActionEvent event) {
 		// update the current item's 'complete' value
+		if(this.selected == null)
+			return;
+
+		this.selected.setComplete();
+
+		System.out.println(this.selected.isComplete());
 	}
 
 	@FXML
@@ -132,9 +192,4 @@ public class ListOptionsController {
 
 
 	public ListOptionsController() {}
-
-	public ListOptionsController (Stage stage) {
-		this.stage = stage;
-		ListOptionsStage = this.stage;
-	}
 }
