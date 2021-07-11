@@ -18,8 +18,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class AddItemController {
-	public static Stage AddItemStage;
+public class EditItemController {
+	public static Stage EditItemStage;
 	private Stage dialogStage;
 
 	@FXML
@@ -29,14 +29,7 @@ public class AddItemController {
 	@FXML
 	private DatePicker date;
 
-
-	public void setDialogStage(Stage stage) {
-		dialogStage = stage;
-		AddItemStage = stage;
-		AddItemStage.setResizable(false);
-	}
-
-	public AddItemController () {}
+	public EditItemController() {}
 
 	@FXML
 	void submitButtonClicked(ActionEvent action) throws IOException {
@@ -45,10 +38,11 @@ public class AddItemController {
 		// add to/replace the object depending on the context
 
 		if(isInputValid()){
-			ToDoItem newItem = new ToDoItem(name.getText(),description.getText(),date.getValue());
-			ToDoApp.activeList.addItem(newItem);
+			ToDoApp.activeList.getList().remove(ListOptionsController.getSelected());
+			ToDoItem newItem = new ToDoItem(name.getText(), description.getText(), date.getValue());
+			ToDoApp.activeList.getList().add(newItem);
 
-			AddItemStage.close();
+			EditItemStage.close();
 			ListOptionsController.ListOptionsStage.close();
 
 			Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
@@ -109,5 +103,11 @@ public class AddItemController {
 	@FXML
 	void cancelButtonClicked (ActionEvent action) {
 		dialogStage.close();
+	}
+
+	public void setDialogStage(Stage stage) {
+		dialogStage = stage;
+		EditItemStage = stage;
+		EditItemStage.setResizable(false);
 	}
 }

@@ -26,7 +26,7 @@ import java.net.URISyntaxException;
 public class ListCatalogController {
 
 	public static Stage ListCatalogStage;
-	private Stage stage = new Stage();
+	private Stage dialogStage = new Stage();
 
 	private static ToDoList selected;
 
@@ -35,9 +35,9 @@ public class ListCatalogController {
 	public ListCatalogController() {
 	}
 
-	public ListCatalogController (Stage stage) {
-		this.stage = stage;
-		ListCatalogStage = this.stage;
+	public ListCatalogController (Stage dialogStage) {
+		this.dialogStage = dialogStage;
+		ListCatalogStage = this.dialogStage;
 		ListCatalogStage.setResizable(false);
 	}
 
@@ -85,13 +85,14 @@ public class ListCatalogController {
 		Parent root = FXMLLoader.load(getClass().getResource("RenameListGUI.fxml"));
 		Scene scene = new Scene(root);
 
-		stage.setScene(scene);
-		stage.show();
+		dialogStage.setTitle("Edit List");
+		dialogStage.setScene(scene);
+		dialogStage.show();
 
 		FXMLLoader loader = new FXMLLoader();
 		RenameListController controller = new RenameListController();
 
-		controller.setDialogStage(this.stage);
+		controller.setDialogStage(this.dialogStage);
 		controller.setList(selected);
 		loader.setController(controller);
 
@@ -106,19 +107,16 @@ public class ListCatalogController {
 		// create a new list using a name the user enters
 		// update window
 
-		selected = new ToDoList("");
-		ToDoApp.activeList = selected;
-
 		Parent root = FXMLLoader.load(getClass().getResource("AddListGUI.fxml"));
 		Scene scene = new Scene(root);
 
-		stage.setTitle("New List");
-		stage.setScene(scene);
-		stage.show();
+		dialogStage.setTitle("New List");
+		dialogStage.setScene(scene);
+		dialogStage.show();
 
 		FXMLLoader loader = new FXMLLoader();
 		AddListController controller = new AddListController();
-		controller.setDialogStage(this.stage);
+		controller.setDialogStage(this.dialogStage);
 		loader.setController(controller);
 	}
 
@@ -169,16 +167,14 @@ public class ListCatalogController {
 		Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
 		Scene scene = new Scene(root);
 
-		stage.setTitle("New List");
-		stage.setScene(scene);
-		stage.show();
+		ToDoApp.mainScene.setTitle("New List");
+		ToDoApp.mainScene.setScene(scene);
+		ToDoApp.mainScene.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		ListOptionsController controller = new ListOptionsController(this.stage, this.selected);
+		ListOptionsController controller = new ListOptionsController();
+		controller.setStage(ToDoApp.mainScene);
 		loader.setController(controller);
-
-		ListCatalogStage.close();
-
 	}
 
 	@FXML

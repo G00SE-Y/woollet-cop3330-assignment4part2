@@ -18,8 +18,7 @@ import java.io.IOException;
 
 public class ListOptionsController {
 	public static Stage ListOptionsStage;
-
-	private Stage stage = new Stage();
+	private Stage dialogStage = new Stage();
 
 	@FXML
 	private Label listName;
@@ -36,7 +35,7 @@ public class ListOptionsController {
 	@FXML
 	private Label itemName;
 
-	private ToDoItem selected;
+	private static ToDoItem selected;
 
 	private ToDoList toDoList;
 	private ObservableList<ToDoItem> list;
@@ -65,19 +64,18 @@ public class ListOptionsController {
 
 	}
 
-	private void tryCheck(ToDoItem selected) {
-		System.out.println("here");
-		if(this.selected != null)
-			this.selected.setComplete();
+	public void setStage(Stage stage) {
+		dialogStage = stage;
+		ListOptionsStage = stage;
+		ListOptionsStage.setResizable(false);
 	}
 
-	public ListOptionsController (Stage stage, ToDoList list) {
-		this.stage = stage;
-		ListOptionsStage = this.stage;
+	public static ToDoItem getSelected() {
+		return selected;
 	}
 
 	private void showItem(ToDoItem newValue) {
-		this.selected = newValue;
+		selected = newValue;
 
 		if(newValue == null) {
 			this.itemName.setText("");
@@ -93,19 +91,19 @@ public class ListOptionsController {
 	}
 
 	@FXML
-	void allButtonClicked(ActionEvent event) {
-		// show all items in the current list
+	void completeBoxChecked(ActionEvent event) {
+		// update the current item's 'complete' value
+		if(selected == null)
+			return;
+
+		selected.setComplete();
+
+		System.out.println(selected.isComplete());
 	}
 
 	@FXML
-	void completeBoxChecked(ActionEvent event) {
-		// update the current item's 'complete' value
-		if(this.selected == null)
-			return;
-
-		this.selected.setComplete();
-
-		System.out.println(this.selected.isComplete());
+	void allButtonClicked(ActionEvent event) {
+		// show all items in the current list
 	}
 
 	@FXML
@@ -121,14 +119,21 @@ public class ListOptionsController {
 			// if yes, then call the deletion method for that list
 			// if no, return and do nothing
 
-		Parent root = FXMLLoader.load(getClass().getResource("ConfirmDeleteGUI.fxml"));
+		if(selected == null)
+			return;
 
+		ToDoApp.activeList.getList().remove(selected);
+
+		Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
 		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+
+		ToDoApp.mainScene.setScene(scene);
+		ToDoApp.mainScene.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(new ConfirmDeleteController());
+		ListOptionsController controller = new ListOptionsController();
+		controller.setStage(ToDoApp.mainScene);
+		loader.setController(controller);
 	}
 
 	@FXML
@@ -139,14 +144,21 @@ public class ListOptionsController {
 		// call the edit item method for that list
 		// return to list page
 
-		Parent root = FXMLLoader.load(getClass().getResource("AddItemGUI.fxml"));
+		if(selected == null)
+			return;
+
+		Parent root = FXMLLoader.load(getClass().getResource("EditItemGUI.fxml"));
 
 		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+
+		dialogStage.setTitle("Edit Item");
+		dialogStage.setScene(scene);
+		dialogStage.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(new AddItemController(stage));
+		EditItemController controller = new EditItemController();
+		controller.setDialogStage(dialogStage);
+		loader.setController(controller);
 	}
 
 	@FXML
@@ -162,13 +174,16 @@ public class ListOptionsController {
 		// call add item method to current list
 
 		Parent root = FXMLLoader.load(getClass().getResource("AddItemGUI.fxml"));
-
 		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+
+		dialogStage.setTitle("New Item");
+		dialogStage.setScene(scene);
+		dialogStage.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(new AddItemController(stage));
+		AddItemController controller = new AddItemController();
+		controller.setDialogStage(dialogStage);
+		loader.setController(controller);
 	}
 
 	@FXML
@@ -180,13 +195,11 @@ public class ListOptionsController {
 		Parent root = FXMLLoader.load(getClass().getResource("ListCatalogGUI.fxml"));
 
 		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-
-		ListOptionsStage.close();
+		ToDoApp.mainScene.setScene(scene);
+		ToDoApp.mainScene.show();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(new ListCatalogController(stage));
+		loader.setController(new ListCatalogController(ToDoApp.mainScene));
 	}
 
 	@FXML
