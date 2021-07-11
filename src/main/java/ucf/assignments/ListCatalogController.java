@@ -132,11 +132,27 @@ public class ListCatalogController {
 		if(selected == null)
 			return;
 
-		int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
-		tableView.getItems().remove(selectedIndex);
-
+		ToDoApp.catalog.deleteList(selected);
 		selected = null;
 
+		try {
+			Parser.parseToCatalogFile(ToDoApp.catalog);
+
+			ListCatalogController.ListCatalogStage.close();
+
+			Parent root = FXMLLoader.load(getClass().getResource("ListCatalogGUI.fxml"));
+			Scene scene = new Scene(root);
+
+			ToDoApp.mainScene.setScene(scene);
+			ToDoApp.mainScene.show();
+
+			FXMLLoader loader = new FXMLLoader();
+			ListCatalogController controller = new ListCatalogController(ToDoApp.mainScene);
+			loader.setController(controller);
+
+		} catch (IOException ioException) {
+			ioException.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -144,11 +160,11 @@ public class ListCatalogController {
 
 		// create the list options window for the list that was clicked on
 
-		if(this.selected == null)
+		if(selected == null)
 			return;
 
 		ToDoApp.activeList = selected;
-		System.out.println("List '" +this.selected.getName() + "' selected:");
+		System.out.println("List '" +selected.getName() + "' selected:");
 
 		Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
 		Scene scene = new Scene(root);

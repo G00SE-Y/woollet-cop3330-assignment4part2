@@ -34,11 +34,7 @@ public class DataStorage {
 		// create a new string with all of the filenames as list names
 		// print list name string to catalog file
 
-		try {
-			Parser.parseToCatalogFile(catalog);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	public static void saveToMemory(ToDoList list) {

@@ -60,7 +60,11 @@ public class AddListController {
 				e.printStackTrace();
 			}
 
-			DataStorage.saveToMemory(ToDoApp.catalog);
+			try {
+				Parser.parseToCatalogFile(ToDoApp.catalog);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 			AddListStage.close();
 		}
@@ -86,6 +90,9 @@ public class AddListController {
 		if (newListName.getText().length() >20) {
 			errorMessage += "Name too long!\n";
 		}
+
+		if(newListName.getText().equalsIgnoreCase("catalog"))
+			errorMessage += "'Catalog' is a protected word. Sorry!\n";
 
 		if (errorMessage.length() == 0) {
 			return true;

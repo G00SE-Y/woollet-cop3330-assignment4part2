@@ -10,6 +10,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 public class RenameListController {
 
@@ -45,6 +47,12 @@ public class RenameListController {
 		if (isInputValid()) {
 			ToDoApp.activeList.setName(newListName.getText());
 			ListCatalogController.getSelected().setName(newListName.getText());
+
+			try {
+				Parser.parseToCatalogFile(ToDoApp.catalog);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 			RenameListStage.close();
 		}
