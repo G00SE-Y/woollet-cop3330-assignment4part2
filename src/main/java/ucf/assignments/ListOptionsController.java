@@ -96,17 +96,28 @@ public class ListOptionsController {
 		if(selected == null)
 			return;
 
-		selected.setComplete();
+		selected.swapComplete();
 	}
 
 	@FXML
 	void allButtonClicked(ActionEvent event) {
 		// show all items in the current list
+		list = FXCollections.observableArrayList();
+		list.addAll(ToDoApp.activeList.getList());
+		tableView.setItems(list);
 	}
 
 	@FXML
 	void completedButtonClicked(ActionEvent event) {
 		// only show all the items in the current list marked as 'complete'
+		ToDoList visibleList = new ToDoList(ToDoApp.activeList.getName());
+		for(ToDoItem item : ToDoApp.activeList.getList()) {
+			if(item.isComplete())
+				visibleList.addItem(item);
+		}
+		list = FXCollections.observableArrayList();
+		list.addAll(visibleList.getList());
+		tableView.setItems(list);
 	}
 
 	@FXML
@@ -167,6 +178,15 @@ public class ListOptionsController {
 	@FXML
 	void incompleteButtonClicked(ActionEvent event) {
 		// only show all the of the items in the current list marked as 'incomplete'
+
+		ToDoList visibleList = new ToDoList(ToDoApp.activeList.getName());
+		for(ToDoItem item : ToDoApp.activeList.getList()) {
+			if(!item.isComplete())
+				visibleList.addItem(item);
+		}
+		list = FXCollections.observableArrayList();
+		list.addAll(visibleList.getList());
+		tableView.setItems(list);
 	}
 
 	@FXML

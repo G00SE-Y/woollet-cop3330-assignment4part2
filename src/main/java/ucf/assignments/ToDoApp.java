@@ -18,6 +18,8 @@ public class ToDoApp extends Application {
 
 	public static ToDoList activeList;
 
+	public static ToDoList visibleList;
+
 	public static Catalog catalog;
 
 	public static void main(String[] args) throws IOException {

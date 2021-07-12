@@ -158,8 +158,6 @@ public class ListCatalogController {
 		ToDoApp.activeList = new ToDoList(ToDoApp.activeList.getName());
 		ToDoApp.activeList.addAllItems(Parser.loadList(ToDoApp.activeList.getName()));
 
-		System.out.println("List '" +selected.getName() + "' selected:");
-
 		Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
 		Scene scene = new Scene(root);
 
@@ -175,7 +173,6 @@ public class ListCatalogController {
 
 	@FXML
 	void memeButtonClicked (ActionEvent action) throws URISyntaxException, IOException {
-		System.out.println("meme activated");
 		Desktop desktop = Desktop.getDesktop();
 		desktop.browse(new URI("https://www.youtube.com/watch?v=wpV-gGA4PSk"));
 	}

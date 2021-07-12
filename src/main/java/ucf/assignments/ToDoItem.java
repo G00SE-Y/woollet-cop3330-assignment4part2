@@ -47,7 +47,7 @@ public class ToDoItem {
 		return complete.get();
 	}
 
-	public void setComplete() {
+	public void swapComplete() {
 		this.complete.set(!this.complete.get());
 	}
 
@@ -65,5 +65,9 @@ public class ToDoItem {
 		this.description.set(description);
 		this.date.set(date);
 		this.complete.set(false);
+	}
+
+	public void setComplete(boolean complete) {
+		this.complete.set(complete);
 	}
 }

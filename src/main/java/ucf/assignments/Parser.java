@@ -7,7 +7,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -49,7 +48,7 @@ public class Parser {
 			boolean complete = (boolean) jsonObj.get("complete");
 
 			ToDoItem newItem = new ToDoItem(name, description, date);
-			newItem.setComplete();
+			newItem.setComplete(complete);
 			list.add(newItem);
 
 		}

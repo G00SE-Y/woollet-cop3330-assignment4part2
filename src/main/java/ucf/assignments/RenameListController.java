@@ -10,6 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -43,11 +44,21 @@ public class RenameListController {
 	@FXML
 	private void submitButtonClicked() {
 		if (isInputValid()) {
+			String oldName = ToDoApp.activeList.getName();
+
 			ToDoApp.activeList.setName(newListName.getText());
 			ListCatalogController.getSelected().setName(newListName.getText());
 
 			try {
 				Parser.parseToCatalogFile(ToDoApp.catalog);
+
+				ToDoList temp = new ToDoList(oldName);
+				temp.addAllItems(Parser.loadList(oldName));
+
+				temp.setName(newListName.getText());
+				Parser.parseToListFile(temp);
+
+				new File(FileHandler.getDirectory() + "/List_Data/"+ oldName +".json").delete();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
