@@ -19,3 +19,6 @@ List Page
   - New : Create a new item with name, due date, and description
   - Edit : Select an item to change its information
   - Complete (Check Box) : Mark an item as 'Complete' or 'Incomplete' (default)
+
+
+  - In loving memory of Rey
