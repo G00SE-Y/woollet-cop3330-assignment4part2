@@ -173,42 +173,42 @@ class Catalog {
 }
 
 class ToDoApp {
-+launch()
++void start()
 }
 
-class DataStorage {
--File storageFolder
+class Parser {
++void parseToListFile(ToDoList)
++void parseToCatalogFile(Catalog)
++LinkedList<ToDoItem> loadList()
++LinkedList<ToDoList> loadCatalog()
++LocalDate parseDate()
 
-+DataStorage(File)
-
-+void saveToMemory(ToDoList)
-+void saveToMemory(Catalog)
-
-+Catalog Catalog loadLists()
-Catalog loadLists(LinkedList<String> listNames)
-+LinkedList<String> loadListNames()
+-LinkedList<ToDoItem> jsonReadList(BufferedReader)
+-LinkedList<ToDoList> jsonReadCatalog(BufferedReader)
 }
 
 class FileHandler {
--getDirectory()
++File getDirectory()
+-static void createListDirectory()
 +static BufferedReader getReader(String)
-+static FileWriter getWriter(String)
++static BufferedWriter getWriter(String)
++static void writeToFile(String, String)
++static File getOutputFile(String)
 }
 
 Catalog *-- ToDoList
 ToDoList *-- ToDoItem
 
 note "File Utility Classes" as n1
-n1 . DataStorage
+n1 . Parser
 n1 .. FileHandler
 
-note "Action Event Controllers" as n2
-n2 .-. AddItemController
-n2 .. AddListController
-n2 .-. ConfirmDeleteController
-n2 . ListCatalogController
-n2 .-. ListOptionsController
-n2 .. LoadListsController
-n2 .-. LoadOptionsController
+note "Controllers" as n2
+n2 .- AddItemController
+n2 . AddListController
+n2 .. EditItemController
+n2 . RenameListController
+n2 .. ListCatalogController
+n2 .. ListOptionsController
 
 @enduml
