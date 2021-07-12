@@ -43,6 +43,11 @@ public class RenameListController {
 
 	@FXML
 	private void submitButtonClicked() {
+
+		// check if input is valid
+		// edit old list name
+		// update files to reflect changes
+
 		if (isInputValid()) {
 			String oldName = ToDoApp.activeList.getName();
 
@@ -73,6 +78,12 @@ public class RenameListController {
 	}
 
 	private boolean isInputValid() {
+
+		// check if name is alphanumeric
+		// check if name is 1-20 characters long
+		// check if another list with the same name already exists
+		// if any of the above are incorrect, create an error dialog and ask the user to fix the input data
+
 		String errorMessage = "";
 
 		for(ToDoList list : ToDoApp.catalog.getCatalog())

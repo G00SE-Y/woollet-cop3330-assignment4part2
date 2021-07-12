@@ -37,6 +37,10 @@ public class AddListController {
 
 	@FXML
 	private void submitButtonClicked() {
+
+		// check if name is valid
+		// add new list with input name
+
 		if (isInputValid()) {
 			ToDoList newList = new ToDoList(newListName.getText());
 			ToDoApp.catalog.addList(newList);
@@ -67,6 +71,12 @@ public class AddListController {
 	}
 
 	private boolean isInputValid() {
+
+		// check if name is alphanumeric
+		// check if name is 1-20 characters long
+		// check if another list with the same name already exists
+		// if any of the above are incorrect, create an error dialog and ask the user to fix the input data
+
 		String errorMessage = "";
 
 		if(Pattern.matches("\\W+", newListName.getText())) {

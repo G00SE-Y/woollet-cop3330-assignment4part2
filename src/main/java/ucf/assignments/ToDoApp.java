@@ -1,8 +1,8 @@
-
 /*
  *  UCF COP3330 Summer 2021 Assignment 4 Solution
  *  Copyright 2021 Ethan Woollet
- */package ucf.assignments;
+ */
+package ucf.assignments;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,6 @@ public class ToDoApp extends Application {
 
 	public static ToDoList activeList;
 
-	public static ToDoList visibleList;
 
 	public static Catalog catalog;
 

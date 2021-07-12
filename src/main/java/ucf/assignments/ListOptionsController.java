@@ -37,7 +37,6 @@ public class ListOptionsController {
 
 	private static ToDoItem selected;
 
-	private ToDoList toDoList;
 	private ObservableList<ToDoItem> list;
 
 	@FXML private TableView<ToDoItem> tableView;

@@ -74,6 +74,7 @@ public class ListCatalogController {
 		// open a new window to prompt the user for a new lists name to overwrite the old list's name
 		// update the list's name to the new name
 		// update window
+		// update files
 
 		if(selected == null)
 			return;
@@ -117,9 +118,8 @@ public class ListCatalogController {
 	@FXML
 	void deleteButtonClicked (ActionEvent action) {
 
-		// prompt the user to confirm the deletion in a new window
-			// if confirmed, delete the list and update the catalog
-			// otherwise close window and do nothing
+		// delete the list and update the catalog
+		// update the files
 
 		if(selected == null)
 			return;
@@ -150,7 +150,7 @@ public class ListCatalogController {
 	@FXML
 	void onOpenButtonClicked(ActionEvent action) throws IOException, ParseException {
 
-		// create the list options window for the list that was clicked on
+		// create the list options window for the list that was opened
 
 		if(selected == null)
 			return;

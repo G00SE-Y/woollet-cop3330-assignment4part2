@@ -22,6 +22,7 @@ public class AddItemController {
 	public static Stage AddItemStage;
 	private Stage dialogStage;
 
+	// gui nodes
 	@FXML
 	private TextField name;
 	@FXML
@@ -41,8 +42,9 @@ public class AddItemController {
 	@FXML
 	void submitButtonClicked(ActionEvent action) {
 
+		// see if object data is considered valid
 		// create a new object from user inputted data
-		// add to/replace the object depending on the context
+		// add the object to the current active list
 
 		if(isInputValid()){
 			ToDoItem newItem = new ToDoItem(name.getText(),description.getText(),date.getValue());
@@ -71,6 +73,12 @@ public class AddItemController {
 	}
 
 	private boolean isInputValid() {
+
+		// make sure the name is 1-20 characters in length
+		// make sure the date exists
+		// make sure the item description is 1-256 characters in length
+		// if any of these are not met, create an error dialog and ask the user to enter the correct data
+
 		String errorMessage = "";
 
 		for(ToDoItem item : ToDoApp.activeList.getList())
@@ -93,6 +101,10 @@ public class AddItemController {
 
 		if (description.getText().length() >256) {
 			errorMessage += "Description too long!\n";
+		}
+
+		if (date.getValue() == null) {
+			errorMessage += "Invalid Date!\n";
 		}
 
 		if (errorMessage.length() == 0) {
