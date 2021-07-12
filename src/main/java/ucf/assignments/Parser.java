@@ -28,6 +28,7 @@ public class Parser {
 		try{
 			return jsonReadCatalog(FileHandler.getReader("catalog.json"));
 		} catch (IOException | ParseException e) {
+			System.out.println(new File(FileHandler.getDirectory() + "/List_Data/").mkdir());
 			new File(FileHandler.getDirectory()+"/List_Data/catalog.json").createNewFile();
 		}
 		return new LinkedList<>();
