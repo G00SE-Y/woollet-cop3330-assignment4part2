@@ -39,7 +39,7 @@ public class AddItemController {
 	public AddItemController () {}
 
 	@FXML
-	void submitButtonClicked(ActionEvent action) throws IOException {
+	void submitButtonClicked(ActionEvent action) {
 
 		// create a new object from user inputted data
 		// add to/replace the object depending on the context
@@ -48,20 +48,25 @@ public class AddItemController {
 			ToDoItem newItem = new ToDoItem(name.getText(),description.getText(),date.getValue());
 			ToDoApp.activeList.addItem(newItem);
 
-			AddItemStage.close();
-			ListOptionsController.ListOptionsStage.close();
+			try {
+				AddItemStage.close();
+				ListOptionsController.ListOptionsStage.close();
 
-			Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
-			Scene scene = new Scene(root);
+				Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
+				Scene scene = new Scene(root);
 
-			ToDoApp.mainScene.setTitle("List Options");
-			ToDoApp.mainScene.setScene(scene);
-			ToDoApp.mainScene.show();
+				ToDoApp.mainScene.setTitle("List Options");
+				ToDoApp.mainScene.setScene(scene);
+				ToDoApp.mainScene.show();
 
-			FXMLLoader loader = new FXMLLoader();
-			ListOptionsController controller = new ListOptionsController();
-			controller.setStage(ToDoApp.mainScene);
-			loader.setController(controller);
+				FXMLLoader loader = new FXMLLoader();
+				ListOptionsController controller = new ListOptionsController();
+				controller.setStage(ToDoApp.mainScene);
+				loader.setController(controller);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

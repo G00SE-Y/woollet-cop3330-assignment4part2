@@ -20,8 +20,6 @@ public class ToDoApp extends Application {
 
 	public static Catalog catalog;
 
-	public static ToDoList selectedList;
-
 	public static void main(String[] args) throws IOException {
 		catalog = new Catalog();
 		catalog.addAllLists(Parser.loadCatalog());

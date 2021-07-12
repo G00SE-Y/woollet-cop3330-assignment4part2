@@ -97,8 +97,6 @@ public class ListOptionsController {
 			return;
 
 		selected.setComplete();
-
-		System.out.println(selected.isComplete());
 	}
 
 	@FXML
@@ -112,7 +110,7 @@ public class ListOptionsController {
 	}
 
 	@FXML
-	void deleteButtonClicked(ActionEvent event) throws IOException {
+	void deleteButtonClicked(ActionEvent event) {
 
 		// get the currently viewed item's data and create a new temporary object
 		// ask the user to confirm whether or not they want to follow through with the deletion
@@ -122,18 +120,23 @@ public class ListOptionsController {
 		if(selected == null)
 			return;
 
-		ToDoApp.activeList.getList().remove(selected);
+		try {
+			ToDoApp.activeList.getList().remove(selected);
 
-		Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
-		Scene scene = new Scene(root);
+			Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
+			Scene scene = new Scene(root);
 
-		ToDoApp.mainScene.setScene(scene);
-		ToDoApp.mainScene.show();
+			ToDoApp.mainScene.setScene(scene);
+			ToDoApp.mainScene.show();
 
-		FXMLLoader loader = new FXMLLoader();
-		ListOptionsController controller = new ListOptionsController();
-		controller.setStage(ToDoApp.mainScene);
-		loader.setController(controller);
+			FXMLLoader loader = new FXMLLoader();
+			ListOptionsController controller = new ListOptionsController();
+			controller.setStage(ToDoApp.mainScene);
+			loader.setController(controller);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -203,8 +206,9 @@ public class ListOptionsController {
 	}
 
 	@FXML
-	void saveListButtonClicked(ActionEvent action) {
-
+	void saveListButtonClicked(ActionEvent action) throws IOException {
+		Parser.parseToCatalogFile(ToDoApp.catalog);
+		Parser.parseToListFile(ToDoApp.activeList);
 	}
 
 	public ListOptionsController() {}

@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 
 public class AddListController {
@@ -24,12 +25,9 @@ public class AddListController {
 	private Stage dialogStage;
 	public static Stage AddListStage;
 
-
-
 	@FXML
 	private void initialize() {
 	}
-
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
@@ -59,12 +57,6 @@ public class AddListController {
 				e.printStackTrace();
 			}
 
-			try {
-				Parser.parseToCatalogFile(ToDoApp.catalog);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
 			AddListStage.close();
 		}
 	}
@@ -77,6 +69,9 @@ public class AddListController {
 	private boolean isInputValid() {
 		String errorMessage = "";
 
+		if(Pattern.matches("\\W+", newListName.getText())) {
+			errorMessage += "A list name can only contain letters!\n";
+		}
 		for(ToDoList list : ToDoApp.catalog.getCatalog())
 			if(list.getName().equalsIgnoreCase(newListName.getText())) {
 				errorMessage += "List already exists!\n";

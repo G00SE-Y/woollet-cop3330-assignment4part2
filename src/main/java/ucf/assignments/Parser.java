@@ -15,8 +15,13 @@ import java.util.LinkedList;
 public class Parser {
 	private static final JSONParser parse = new JSONParser();
 
-	public static LinkedList<ToDoItem> loadList(String listName) throws IOException, ParseException {
-		return jsonReadList(FileHandler.getReader(listName+".json"));
+	public static LinkedList<ToDoItem> loadList(String listName) throws IOException {
+		try{
+			return jsonReadList(FileHandler.getReader(listName + ".json"));
+		} catch (IOException | ParseException e) {
+			new File(FileHandler.getDirectory()+"/List_Data/catalog.json").createNewFile();
+		}
+		return new LinkedList<>();
 	}
 
 	public static LinkedList<ToDoList> loadCatalog() throws IOException {
@@ -40,8 +45,11 @@ public class Parser {
 			String name = (String) jsonObj.get("name");
 			String description = (String) jsonObj.get("description");
 			LocalDate date = parseDate((String) jsonObj.get("date"));
+			boolean complete = (boolean) jsonObj.get("complete");
 
-			list.add(new ToDoItem(name, description, date));
+			ToDoItem newItem = new ToDoItem(name, description, date);
+			newItem.setComplete();
+			list.add(newItem);
 
 		}
 		in.close();
@@ -79,6 +87,7 @@ public class Parser {
 			object.put("name", item.getName());
 			object.put("description", item.getDescription());
 			object.put("date", String.valueOf(item.getDate()));
+			object.put("complete", item.isComplete());
 			array.add(object);
 		}
 		FileHandler.writeToFile(array.toJSONString(), list.getName() + ".json");
@@ -90,7 +99,6 @@ public class Parser {
 		for(ToDoList list : catalog.getCatalog()){
 			JSONObject object = new JSONObject();
 			object.put("name" , list.getName());
-			object.put("description" , list.getSize());
 			array.add(object);
 		}
 

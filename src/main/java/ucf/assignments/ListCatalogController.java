@@ -44,16 +44,14 @@ public class ListCatalogController {
 	//for displaying the table
 	@FXML private TableView<ToDoList> tableView;
 	@FXML private TableColumn<ToDoList,String> nameColumn;
-	@FXML private TableColumn<ToDoList,String> sizeColumn;
 
 	public static ToDoList getSelected() {
 		return selected;
 	}
 
 	@FXML
-	public void initialize() throws IOException, ParseException {
+	public void initialize() {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		sizeColumn.setCellValueFactory(cellData -> cellData.getValue().sizeProperty());
 
 		catalog = FXCollections.observableArrayList();
 		catalog.addAll(ToDoApp.catalog.getCatalog());
@@ -79,9 +77,6 @@ public class ListCatalogController {
 
 		if(selected == null)
 			return;
-
-		ToDoApp.selectedList = selected;
-
 		Parent root = FXMLLoader.load(getClass().getResource("RenameListGUI.fxml"));
 		Scene scene = new Scene(root);
 
@@ -95,7 +90,6 @@ public class ListCatalogController {
 		controller.setDialogStage(this.dialogStage);
 		controller.setList(selected);
 		loader.setController(controller);
-
 
 
 	}
@@ -154,14 +148,16 @@ public class ListCatalogController {
 	}
 
 	@FXML
-	void onOpenButtonClicked(ActionEvent action) throws IOException {
+	void onOpenButtonClicked(ActionEvent action) throws IOException, ParseException {
 
 		// create the list options window for the list that was clicked on
 
 		if(selected == null)
 			return;
 
-		ToDoApp.activeList = selected;
+		ToDoApp.activeList = new ToDoList(ToDoApp.activeList.getName());
+		ToDoApp.activeList.addAllItems(Parser.loadList(ToDoApp.activeList.getName()));
+
 		System.out.println("List '" +selected.getName() + "' selected:");
 
 		Parent root = FXMLLoader.load(getClass().getResource("ListOptionsGUI.fxml"));
@@ -181,6 +177,6 @@ public class ListCatalogController {
 	void memeButtonClicked (ActionEvent action) throws URISyntaxException, IOException {
 		System.out.println("meme activated");
 		Desktop desktop = Desktop.getDesktop();
-		desktop.browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+		desktop.browse(new URI("https://www.youtube.com/watch?v=wpV-gGA4PSk"));
 	}
 }

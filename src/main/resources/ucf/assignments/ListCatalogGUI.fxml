@@ -18,10 +18,9 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <TableView fx:id="tableView" layoutX="4.0" layoutY="41.0" prefHeight="292.0" prefWidth="590.0">
+            <TableView fx:id="tableView" layoutX="34.0" layoutY="41.0" prefHeight="292.0" prefWidth="538.0">
               <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="431.0" text="List Name" />
-                <TableColumn fx:id="sizeColumn" prefWidth="168.0" text="Number of Items" />
+                <TableColumn fx:id="nameColumn" prefWidth="533.0" text="List Name" />
               </columns>
             </TableView>
             <Button layoutX="362.0" layoutY="351.0" mnemonicParsing="false" onAction="#deleteButtonClicked" text="Delete" />

@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 
 public class RenameListController {
@@ -23,19 +24,16 @@ public class RenameListController {
 
 	private ToDoList list = new ToDoList("temp");
 
-
 	@FXML
 	private void initialize() {
-		newListName.setText(ToDoApp.selectedList.getName());
+		newListName.setText(ToDoApp.activeList.getName());
 	}
-
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 		RenameListStage = this.dialogStage;
 		RenameListStage.setResizable(false);
 	}
-
 
 	public void setList(ToDoList list) {
 		this.list = list;
@@ -71,6 +69,11 @@ public class RenameListController {
 				errorMessage += "List already exists!\n";
 				break;
 			}
+
+		if(Pattern.matches("\\W+", newListName.getText())) {
+			errorMessage += "A list name can only contain letters!\n";
+		}
+
 
 		if (newListName.getText() == null || newListName.getText().length() == 0 ) {
 			errorMessage += "No valid first name!\n";
