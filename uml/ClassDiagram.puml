@@ -2,61 +2,91 @@
 'https://plantuml.com/class-diagram
 
 class AddItemController {
--TextField itemName
--LocalDate dueDate
+-TextField name
+-LocalDate date
 -TextField description
 
-+static Stage stage
--Stage AddItemStage
++static Stage AddItemStage
+-Stage dialogStage
 
-+AddItemController(Stage)
++void AddItemController()
+
++void setDialogStage(Stage)
+-boolean isInputValid()
 
 void submitButtonClicked(ActionEvent)
+void cancelButtonClicked(ActionEvent)
+}
+
+class EditItemController {
+-TextField name
+-LocalDate date
+-TextField description
+
++static Stage EditItemStage
+-Stage dialogStage
+
++void EditItemController()
+
++void setDialogStage(Stage)
+-boolean isInputValid()
+
+void submitButtonClicked(ActionEvent)
+void cancelButtonClicked(ActionEvent)
 }
 
 class AddListController {
--TextField listName
+-TextField newListName
 
-+static Stage stage
--Stage AddListStage
++static Stage AddListStage
+-Stage dialogStage
 
-+AddListController(Stage)
++AddListController()
++void setDialogStage(Stage)
+-isInputValid()
 
 void submitButtonClicked(ActionEvent)
+void cancelButtonClicked(ActionEvent)
 }
 
-class ConfirmDeleteController {
-+static Stage stage
--Stage confirmDeleteStage
+class RenameListController {
+-TextField newListName
 
-+confirmDeleteController(Stage)
++static Stage RenameListStage
+-Stage dialogStage
 
-void confirmButtonClicked(ActionEvent)
++RenameListController()
++void setDialogStage(Stage)
+-isInputValid()
+
+void submitButtonClicked(ActionEvent)
 void cancelButtonClicked(ActionEvent)
 }
 
 class ListCatalogController {
-+static Stage stage
--Stage ListCatalogStage
+	+static Stage
+	-Stage dialogStage
 
--TableView tableView
--TableColumn nameColumn
--TableColumn sizeColumn
+	-static ToDoList selected
+	-static ObservableList<ToDoList> catalog
+    -TableView<ToDoList> tableView
+    -TableColumn<ToDoList,String> nameColumn
 
-+ListCatalogController(Stage)
-+initialize()
+	+ListCatalogController()
+	+ListCatalogController (Stage)
+	+static ToDoList getSelected()
+	-void updateSelected(ToDoList)
 
-void saveListButtonCLicked(ActionEvent)
-void saveAllListsButtonClicked(ActionEvent)
-void renameButtonClicked(ActionEvent)
-void newButtonClicked(ActionEvent)
-void deleteButtonClicked(ActionEvent)
-void onTableItemDoubleClicked(ActionEvent)
+	void renameButtonClicked (ActionEvent action)
+	void newButtonClicked (ActionEvent action)
+	void deleteButtonClicked (ActionEvent action)
+	void onOpenButtonClicked(ActionEvent action)
+	void memeButtonClicked (ActionEvent action)
 }
 
 class ListOptionsController {
-+static Stage stage
--Stage ListOptionsStage
++static Stage ListOptionsController
+-Stage dialogStage
 
 -TextArea listName
 -TableView<ToDoItem> table
@@ -65,9 +95,16 @@ class ListOptionsController {
 -TextArea itemDescription
 -TextArea itemDate
 -TextArea itemName
+-static ToDoItem selected
+-ObservableList<ToDoItem> list
+-TableView<ToDoItem> tableView;
+-TableColumn<ToDoItem,String> nameColumn;
 
-+ListOptionsController(Stage)
++ListOptionsController()
++void setStage(Stage)
 
++ToDoItem getSelected()
+-void showItem(ToDoItem)
 -void completeBoxChecked(ActionEvent)
 -void deleteButtonClicked(ActionEvent)
 -void newButtonClicked(ActionEvent)
@@ -79,36 +116,11 @@ class ListOptionsController {
 -void itemClicked(ActionEvent)
 }
 
-class LoadListsController {
-+static Stage stage
--Stage LoadListsStage
-
--TableView table
--TableColumn checkBoxes
--TableColumn listNames
-
-+LoadListsController(Stage)
-
--void LoadListsButtonClicked(ActionEvent)
--void loadBoxChecked(ActionEvent)
-}
-
-class LoadOptionsController {
-+static Stage stage
--Stage LoadOptionsStage
-
-+LoadOptionsController(Stage)
-
--void loadAllListsButtonClicked(ActionEvent)
--void selectListsToLoadButtonClicked(ActionEvent)
--void memeButtonClicked(ActionEvent)
-}
-
 class ToDoItem {
 -SimpleStringProperty name
 -SimpleStringProperty description
 -LocalDate date
--boolean complete
+-SimpleBooleanProperty complete
 
 +String getName()
 +void setName(String)
@@ -117,7 +129,8 @@ class ToDoItem {
 +String getDesc()
 +void setDesc(String)
 +String isComplete()
-+void setComplete(String)
++void setComplete(boolean)
++void swapComplete()
 
 +ToDoItem(String, String, String)
 }

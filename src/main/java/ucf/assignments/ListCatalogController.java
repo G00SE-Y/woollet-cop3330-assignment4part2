@@ -35,15 +35,15 @@ public class ListCatalogController {
 	public ListCatalogController() {
 	}
 
+	//for displaying the table
+	@FXML private TableView<ToDoList> tableView;
+	@FXML private TableColumn<ToDoList,String> nameColumn;
+
 	public ListCatalogController (Stage dialogStage) {
 		this.dialogStage = dialogStage;
 		ListCatalogStage = this.dialogStage;
 		ListCatalogStage.setResizable(false);
 	}
-
-	//for displaying the table
-	@FXML private TableView<ToDoList> tableView;
-	@FXML private TableColumn<ToDoList,String> nameColumn;
 
 	public static ToDoList getSelected() {
 		return selected;
